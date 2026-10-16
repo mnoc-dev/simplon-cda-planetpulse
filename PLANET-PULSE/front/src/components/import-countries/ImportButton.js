@@ -26,18 +26,16 @@ export default class ImportButton extends AppComponent{
     }
 
     handleClick(){
-        console.log("le bouton a été cliqué");
         if(this.state.status === 'loading' || this.state.status === 'success'){
-            return;// on ne fait rien
-        } 
-        
+            return;// security
+        }
         this.state = { ...this.state, status: 'loading'};
 
         this.updateButtonDisplay();
 
         this.runImport();
-    }
-
+        }
+    
     updateButtonDisplay(){
         const button = this.querySelector('button');
         const status = this.state.status;
@@ -53,11 +51,24 @@ export default class ImportButton extends AppComponent{
             button.textContent = 'Click here to import countries';
         }
     }
-
-    runImport(){
+    runImport(){//simulation of loading import
         setTimeout(() => {
-            thid.onImportSuccess(195);
+            this.onImportSuccess(195);
         }, 2000);
     }
+    onImportSuccess(count){
+        this.state = {...this.state, status : 'success'}; 
+        this.updateButtonDisplay();
+        this.dispatchEvent(new CustomEvent('import-success', {
+            detail: { count : count }
+        }));
+    }
+    onImportError(message){
+        this.state = {...this.state, status : 'error'};
+        this.updateButtonDisplay();
+        this.dispatchEvent(new CustomEvent('import-error', {detail: { message : message }
+        }));
+    }
 }
+
 customElements.define('import-button', ImportButton);
