@@ -15,11 +15,10 @@ export default class ImportButton extends AppComponent{
     }
     afterRender(){
         const button = this.querySelector('button'); 
-        //querySelector recherche la premiere occurence dans ce scope du mot entre parenthèse
-
+        //querySelector looks for the first ocurrence 'button' in the scope
         if (button) {
             button.addEventListener('click', () => {
-                // si il y a l'event click sur le bouton fais ce qui suit(ici arrow anonymous function)
+                // if the event pop, do the function after 'click'
                 this.handleClick();
             });
         }
@@ -27,9 +26,10 @@ export default class ImportButton extends AppComponent{
 
     handleClick(){
         if(this.state.status === 'loading' || this.state.status === 'success'){
-            return;// security
+            return;
+            //disable button when status is loading or success
         }
-        this.state = { ...this.state, status: 'loading'};
+        this.state = { status: 'loading'};
 
         this.updateButtonDisplay();
 
@@ -51,22 +51,24 @@ export default class ImportButton extends AppComponent{
             button.textContent = 'Click here to import countries';
         }
     }
-    runImport(){//simulation of loading import
+    runImport(){
+        //simulation of loading import
         setTimeout(() => {
             this.onImportSuccess(195);
         }, 2000);
     }
     onImportSuccess(count){
-        this.state = {...this.state, status : 'success'}; 
+        this.state = {status : 'success'}; 
         this.updateButtonDisplay();
         this.dispatchEvent(new CustomEvent('import-success', {
             detail: { count : count }
         }));
     }
     onImportError(message){
-        this.state = {...this.state, status : 'error'};
+        this.state = {status : 'error'};
         this.updateButtonDisplay();
-        this.dispatchEvent(new CustomEvent('import-error', {detail: { message : message }
+        this.dispatchEvent(new CustomEvent('import-error', {
+            detail: { message : message }
         }));
     }
 }
