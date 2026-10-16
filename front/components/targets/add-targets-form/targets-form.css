@@ -1,0 +1,63 @@
+/*******************************************************/
+/*                                                     */
+/*                     COMMON CSS                      */
+/*                                                     */
+/*******************************************************/
+:root {
+    --darkblue-pp: #16324f;
+    --green-pp: #248232;
+    --blue-pp: #1976d2;
+    --background-pp: #f3f7fa;
+    --white-pp: #ffffff;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background-pp);
+}
+
+main {
+    padding: 1rem;
+}
+
+h1 {
+    color: var(--darkblue-pp) !important;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    main {
+        padding: 5%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    main {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    main {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+}
+
+/*******************************************************/
+/*                                                     */
+/*                     BTN                             */
+/*                                                     */
+/*******************************************************/
+.btn-pp {
+    background-color: var(--green-pp);
+    color: var(--white-pp);
+}
+
+.btn-pp:hover {
+    cursor: pointer;
+}
