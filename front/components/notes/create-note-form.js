@@ -26,7 +26,16 @@ export default class CreateNoteForm extends AppComponent{
         
     }
 
+    #todayAsIsoDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
     afterRender() {
+        this.querySelector('#note-date').value = this.#todayAsIsoDate();
+
         //TODO: add event listener to the form submit event, validate the form and send the data to the server
     }
 }
