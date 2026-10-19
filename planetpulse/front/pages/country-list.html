@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlanetPulse</title>
+    <script type="module" src="../components/commons/AppHeader.js"></script>
+    <script type="module" src="../components/country-list/CountryList.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <country-list></country-list>
-    <script type="module" src="../components/country-list/country-list.js"></script>
+    <app-header></app-header>
+    <main>
+        <country-list></country-list>
+    </main>
 </body>
 </html>

@@ -17,7 +17,7 @@ class AppHeader extends AppComponent {
                     </button>
                     <div class="collapse navbar-collapse" id="app-header-navigation">
                         <ul class="navbar-nav ms-auto gap-lg-3">
-                            <li class="nav-item"><a class="nav-link" href="#country">Country list</a></li>
+                            <li class="nav-item"><a class="nav-link" href="./country-list.html">Country list</a></li>
                             <li class="nav-item"><a class="nav-link" href="#indicators">Indicators</a></li>
                             <li class="nav-item"><a class="nav-link" href="#targets">Targets</a></li>
                             <li class="nav-item"><a class="nav-link" href="#notes">Notes</a></li>
