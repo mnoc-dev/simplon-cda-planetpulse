@@ -1,4 +1,4 @@
-import AppComponent from "../../../lib/AppComponent.js";
+import AppComponent from "../AppComponent.js";
 
 export default class ImportButton extends AppComponent{
     beforeRender(){
@@ -58,10 +58,10 @@ export default class ImportButton extends AppComponent{
         }, 2000);
     }
     onImportSuccess(count){
-        this.state = {status : 'success'}; 
-        this.updateButtonDisplay();
+        this.state = {status : 'success'}; //state
+        this.updateButtonDisplay(); //DOM
         this.dispatchEvent(new CustomEvent('import-success', {
-            detail: { count : count }
+            detail: { count : count }//cri
         }));
     }
     onImportError(message){
