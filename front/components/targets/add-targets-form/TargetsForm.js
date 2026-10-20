@@ -3,16 +3,6 @@ import AppComponent from "../../AppComponent.js";
 import styles from "./targets-form.css" with { type: "css" };
 
 export default class TargetsFormComponent extends AppComponent {
-    #state = {
-        inputs: {
-            year: null,
-            co2Emissions: null,
-            forestArea: null,
-            RenewableEnergyShare: null,
-            pm25: null,
-        },
-    };
-
     #props = {
         targets: {
             co2EmissionsUnit: "tonnes",
@@ -20,20 +10,15 @@ export default class TargetsFormComponent extends AppComponent {
             RenewableEnergyShareUnit: "%",
             pm25Unit: "µg/m<sup>3</sup>",
         },
+        inputs: {
+            yearMinValue: new Date().getFullYear(),
+        },
     };
 
     connectedCallback() {
         this.beforeRender();
         this.#render();
         this.afterRender();
-    }
-
-    get state() {
-        return this.#state;
-    }
-
-    set state(state) {
-        this.#state = state;
     }
 
     get props() {
@@ -51,7 +36,7 @@ export default class TargetsFormComponent extends AppComponent {
             <div class="mb-3 row input-group has-validation">
                 <label for="inputYear" class="col-auto col-form-label">Target year:</label>
                 <div class="col-5 col-sm-3">
-                    <input type="number" class="form-control" id="inputYear" required>
+                    <input type="number" class="form-control" id="inputYear" min=${this.props.inputs.yearMinValue} required>
                     <div class="invalid-feedback">
                         Year is required
                     </div>
@@ -128,26 +113,42 @@ export default class TargetsFormComponent extends AppComponent {
         `;
     }
 
+    validateYear() {
+        const input = document.getElementById("inputYear");
+        const validityState = input.validity;
+
+        const invalidYearFeeback = document.querySelector(
+            "#inputYear + .invalid-feedback",
+        );
+
+        if (validityState.badInput) {
+            invalidYearFeeback.textContent = "Year must be an integer";
+            console.log("Please enter a number");
+        } else if (validityState.valueMissing) {
+            invalidYearFeeback.textContent = "Year is required";
+        } else if (validityState.rangeUnderflow) {
+            invalidYearFeeback.textContent =
+                "Year must superior to " + this.props.inputs.yearMinValue;
+        } else {
+            input.setCustomValidity("");
+        }
+    }
+
     afterRender() {
-        (() => {
-            "use strict";
+        const form = document.getElementById("add-target-form");
 
-            const form = document.getElementById("add-target-form");
+        form.addEventListener(
+            "submit",
+            (event) => {
+                event.preventDefault();
+                event.stopPropagation();
 
-            form.addEventListener(
-                "submit",
-                (event) => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
+                this.validateYear();
 
-                    form.classList.add("was-validated");
-                },
-                false,
-            );
-
-        })();
+                form.classList.add("was-validated");
+            },
+            false,
+        );
         return;
     }
 }
