@@ -12,10 +12,12 @@ export default class CreateNoteForm extends AppComponent{
         } else {
             this.state = { countryCode: null };
         }   
-        console.log(this.state.countryCode);
     }
 
     template() {
+        if (this.state.countryCode === null) {
+            return `<p class="text-danger">Invalid country code in URL</p>`;
+        }
         return`
             <form>
                 <p> Fields marked with <span aria-hidden="true" class="text-danger">*</span> are required</p>
@@ -48,7 +50,13 @@ export default class CreateNoteForm extends AppComponent{
         return `${year}-${month}-${day}`;
     }
     afterRender() {
+        if (this.state.countryCode === null) {
+            return; // Don't add event listener if country code is invalid
+        }
+
         this.querySelector('#note-date').value = this.#todayAsIsoDate();
+
+
 
         //TODO: add event listener to the form submit event, validate the form and send the data to the server
     }
