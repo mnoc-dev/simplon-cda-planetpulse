@@ -18,4 +18,4 @@ class IndicatorsPage extends AppComponent{
 
     }
 
-customElements.define('indicators-form', IndicatorsForm);
+customElements.define('indicators-item', IndicatorsPage);

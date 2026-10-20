@@ -7,6 +7,8 @@ class IndicatorsFormComponent extends AppComponent {
         this.state = {
             indicators : ["year","co2_emission", "PM2.5 exposure", "Forest area", "renewable energy share"]
         };
+
+        
     }
 
     template(){
@@ -42,7 +44,7 @@ class IndicatorsFormComponent extends AppComponent {
 
     #handleIndicators() {
         const parent = this.querySelector('#form');
-        this.attachChild(parent,'indicator-item', this.state.IndicatorsFormComponent);
+        this.attachChildren(parent, 'indicator-item');
     }
 
 
