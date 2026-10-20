@@ -1,6 +1,20 @@
 import AppComponent from '../AppComponent.js';
 
+const ISO_COUNTRY_CODE= /^[A-Z]{2}$/; // ISO 3166-1 alpha-2 country code format
+
 export default class CreateNoteForm extends AppComponent{
+
+    beforeRender() {
+        const params = new URLSearchParams(window.location.search);
+        const countryCode = params.get('country');
+        if (countryCode && ISO_COUNTRY_CODE.test(countryCode)) {
+            this.state = { countryCode };
+        } else {
+            this.state = { countryCode: null };
+        }   
+        console.log(this.state.countryCode);
+    }
+
     template() {
         return`
             <form>
