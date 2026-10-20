@@ -13,16 +13,16 @@ export default class ImportPage extends AppComponent{
     }
     afterRender(){
         const button = this.querySelector('import-button');
-        const message = this.querySelector('import-message')
+        const message = this.querySelector('import-message');
 
         button.addEventListener('import-success',(e) => {
             const count = e.detail.count;
-            message.show(`${count} imported countries`, 'success')
+            message.show(`${count} imported countries`, 'success');
         });
-
+        
         button.addEventListener('import-error', (e) => {
-            const message = e.detail.message;
-            message(`Erreur : ${message}`, `error`);
+            const error = e.detail.message;
+            message.show(`Erreur : ${error}`, 'error');
         });    
     }
 

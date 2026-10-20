@@ -20,6 +20,9 @@ export default class ImportMessage extends AppComponent{
     updateDisplay(){// update DOM
         const slot = this.querySelector('#message-slot');
         const {text, type} = this.state;
+        /*const text = this.state.text;
+        const type = this.state.type;
+        */
 
         if (!text){
             slot.innerHTML = '';

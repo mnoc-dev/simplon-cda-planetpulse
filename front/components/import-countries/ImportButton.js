@@ -51,12 +51,26 @@ export default class ImportButton extends AppComponent{
             button.textContent = 'Click here to import countries';
         }
     }
-    runImport(){
+    async runImport(){
         //simulation of loading import
-        setTimeout(() => {
-            this.onImportSuccess(195);
-        }, 2000);
+        try {
+            const response = await fetch('/api/import-countries');
+
+            if (!response.ok){
+
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Error import");   
+            }
+
+            const data = await response.json();
+            
+            this.onImportSuccess(data.count);
+            
+        } catch (error) {
+            this.onImportError(error.message);
+        }
     }
+
     onImportSuccess(count){
         this.state = {status : 'success'}; //state
         this.updateButtonDisplay(); //DOM
