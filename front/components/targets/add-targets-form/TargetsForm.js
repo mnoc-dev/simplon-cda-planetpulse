@@ -12,6 +12,7 @@ export default class TargetsFormComponent extends AppComponent {
         },
         inputs: {
             yearMinValue: new Date().getFullYear(),
+            indicatorMinValue: 0.01,
         },
     };
 
@@ -50,9 +51,9 @@ export default class TargetsFormComponent extends AppComponent {
                     <label for="inputCo2" class="form-label col-md-3">CO2 emission:</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control" id="inputCo2" min="0.1">
+                            <input type="number" class="form-control target-input" id="inputCo2" min="${this.props.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
-                                CO2 emission must be greater than 0,0
+                                Please enter valid value
                             </div>
                         </div>
                         <div class="col-3 col-sm-2 my-auto">
@@ -65,9 +66,9 @@ export default class TargetsFormComponent extends AppComponent {
                     <label for="inputForestArea" class="form-label col-md-3">Forest area:</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control" id="inputForestArea" min="0.1">
+                            <input type="number" class="form-control target-input" id="inputForestArea" min="${this.props.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
-                                Forest area must be greater than 0,0
+                                Please enter valid value
                             </div>
                             </div>
                         <div class="col-3 col-sm-2 my-auto">
@@ -80,9 +81,9 @@ export default class TargetsFormComponent extends AppComponent {
                     <label for="inputRenewableEnergy" class="form-label col-md-3">Renewable energy share:</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control" id="inputRenewableEnergy" min="0.1">
+                            <input type="number" class="form-control target-input" id="inputRenewableEnergy" min="${this.props.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
-                                Renewable energy share must be greater than 0,0
+                                Please enter valid value
                             </div>
                             </div>
                         <div class="col-3 col-sm-2 my-auto">
@@ -95,9 +96,9 @@ export default class TargetsFormComponent extends AppComponent {
                     <label for="inputPM2-5" class="form-label col-md-3">PM2.5 exposure:</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control" id="inputPM2-5" min="0.1">
+                            <input type="number" class="form-control target-input" id="inputPM2-5" min="${this.props.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
-                                PM2.5 must be greater than 0,0
+                                Please enter valid value
                             </div>
                         </div>
                         <div class="col-3 col-sm-2 my-auto">
@@ -123,14 +124,45 @@ export default class TargetsFormComponent extends AppComponent {
 
         if (validityState.badInput) {
             invalidYearFeeback.textContent = "Year must be an integer";
-            console.log("Please enter a number");
         } else if (validityState.valueMissing) {
             invalidYearFeeback.textContent = "Year is required";
         } else if (validityState.rangeUnderflow) {
             invalidYearFeeback.textContent =
-                "Year must superior to " + this.props.inputs.yearMinValue;
+                "Year must be superior to " + this.props.inputs.yearMinValue;
         } else {
             input.setCustomValidity("");
+        }
+    }
+
+    validateIndicatorValue(input) {
+        const validityState = input.validity;
+
+        let label = input.labels[0].textContent;
+        label = label.replace(":", "");
+
+        const invalidYearFeeback = document.querySelector(
+            `#${input.getAttribute("id")} + .invalid-feedback`,
+        );
+
+        if (validityState.badInput) {
+            invalidYearFeeback.textContent = label + " must be a decimal";
+        } else if (validityState.valueMissing) {
+            invalidYearFeeback.textContent = label + " is required";
+        } else if (validityState.rangeUnderflow) {
+            invalidYearFeeback.textContent =
+                label +
+                " must be equal to or greater than " +
+                this.props.inputs.indicatorMinValue;
+        } else {
+            input.setCustomValidity("");
+        }
+    }
+
+    validateIndicators() {
+        const targets = document.querySelectorAll(".target-input");
+
+        for (let i = 0; i < targets.length; i++) {
+            this.validateIndicatorValue(targets[i]);
         }
     }
 
@@ -144,6 +176,8 @@ export default class TargetsFormComponent extends AppComponent {
                 event.stopPropagation();
 
                 this.validateYear();
+
+                this.validateIndicators();
 
                 form.classList.add("was-validated");
             },
