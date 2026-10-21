@@ -46,7 +46,9 @@ export default class TargetsFormComponent extends AppComponent {
             
             <fieldset class="d-flex flex-column gap-md-4">
                 <legend>Indicators</legend>
-
+                 <div class="target-missing invalid-feedback mb-3">
+                        At least one target must be set
+                    </div>
                 <div class="mb-3 d-md-flex align-items-center gap-3">
                     <label for="inputCo2" class="form-label col-md-3">CO2 emission:</label>
                     <div class="row flex-grow-1">
@@ -161,8 +163,24 @@ export default class TargetsFormComponent extends AppComponent {
     validateIndicators() {
         const targets = document.querySelectorAll(".target-input");
 
+        let hasOneTargetSetMin = false;
+
+        let i = 0;
+
         for (let i = 0; i < targets.length; i++) {
-            this.validateIndicatorValue(targets[i]);
+            const value = targets[i].value;
+            if (targets[i].validity.badInput) {
+                hasOneTargetSetMin = true;
+                this.validateIndicatorValue(targets[i]);
+            }
+        }
+
+        const targetsMissingFeedback =
+            document.querySelector(".target-missing");
+        if (!hasOneTargetSetMin) {
+            targetsMissingFeedback.classList.add("d-flex");
+        } else {
+            targetsMissingFeedback.classList.remove("d-flex");
         }
     }
 
@@ -176,7 +194,6 @@ export default class TargetsFormComponent extends AppComponent {
                 event.stopPropagation();
 
                 this.validateYear();
-
                 this.validateIndicators();
 
                 form.classList.add("was-validated");

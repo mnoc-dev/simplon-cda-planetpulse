@@ -25,6 +25,12 @@ h1 {
     color: var(--darkblue-pp) !important;
 }
 
+.form-control.is-valid,
+.was-validated .form-control:valid {
+    background-image: none;
+    border-color: #dee2e6;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
     main {
