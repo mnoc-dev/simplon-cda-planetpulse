@@ -59,6 +59,7 @@ export default class CreateNoteForm extends AppComponent{
         return `${year}-${month}-${day}`;
     }
     afterRender() {
+
         if (this.state.countryCode === null) {
             return; // Don't add event listener if country code is invalid
         }
@@ -67,16 +68,20 @@ export default class CreateNoteForm extends AppComponent{
 
         const form = this.querySelector('#note-form');
         form.addEventListener('submit',(event) => {
-            event.preventDefault(); // Prevent the default form submission
-
-            form.classList.add('was-validated');
-            if (!form.checkValidity()) {
-                
-                return; // Stop if the form is invalid
-            }      
-            console.log('Form is valid');     
+            this.#handleFormSubmit(event);        
     });
     }
+
+    #handleFormSubmit(event) {
+        const form = event.currentTarget;
+        event.preventDefault(); // Prevent the default form submission
+
+        form.classList.add('was-validated');
+        if (!form.checkValidity()) {
+            
+            return; // Stop if the form is invalid
+        }      
+        console.log('Form is valid');
+}
 }
 customElements.define('create-note-form', CreateNoteForm);
-
