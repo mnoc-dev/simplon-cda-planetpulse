@@ -1,13 +1,8 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
 app-header {
     display: block;
 }
 
-/* Bootstrap gere la disposition et le menu responsive. */
+/* Bootstrap handles the layout and responsive menu. */
 app-header .navbar {
     background-color: #edf6fa;
     --bs-navbar-color: #003354;
@@ -28,4 +23,3 @@ app-header .logo-name {
     max-width: 40vw;
     height: auto;
 }
-
