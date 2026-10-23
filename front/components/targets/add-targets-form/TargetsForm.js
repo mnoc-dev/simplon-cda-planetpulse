@@ -10,6 +10,12 @@ export default class TargetsFormComponent extends AppComponent {
             RenewableEnergyShareUnit: "%",
             pm25Unit: "µg/m<sup>3</sup>",
         },
+        labels: {
+            co2Emissions: "CO2 emissions",
+            forestArea: "Forest area",
+            RenewableEnergyShare: "Renewable energy share",
+            pm25: "PM2.5 Exposure",
+        },
         inputs: {
             yearMinValue: new Date().getFullYear(),
             indicatorMinValue: 0.01,
@@ -37,7 +43,7 @@ export default class TargetsFormComponent extends AppComponent {
             <div class="mb-3 row input-group has-validation">
                 <label for="inputYear" class="col-auto col-form-label">Target year:</label>
                 <div class="col-5 col-sm-3">
-                    <input type="number" class="form-control" id="inputYear" min=${this.props.inputs.yearMinValue} required>
+                    <input type="number" class="form-control" id="inputYear" min=${this.props.inputs.yearMinValue + 1} required>
                     <div class="invalid-feedback">
                         Year is required
                     </div>
@@ -48,9 +54,9 @@ export default class TargetsFormComponent extends AppComponent {
                 <legend>Indicators</legend>
                  <div class="target-missing invalid-feedback mb-3">
                         At least one target must be set
-                    </div>
+                </div>
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputCo2" class="form-label col-md-3">CO2 emission:</label>
+                    <label for="inputCo2" class="form-label col-md-3"><span>${this.props.labels.co2Emissions}</span> (${this.props.targets.co2EmissionsUnit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
                             <input type="number" class="form-control target-input" id="inputCo2" min="${this.props.inputs.indicatorMinValue}" step="any">
@@ -58,14 +64,11 @@ export default class TargetsFormComponent extends AppComponent {
                                 Please enter valid value
                             </div>
                         </div>
-                        <div class="col-3 col-sm-2 my-auto">
-                            <span>${this.props.targets.co2EmissionsUnit}</span>
-                        </div>
                     </div>
                 </div>
 
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputForestArea" class="form-label col-md-3">Forest area:</label>
+                    <label for="inputForestArea" class="form-label col-md-3"><span>${this.props.labels.forestArea}</span> (${this.props.targets.forestAreaUnit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
                             <input type="number" class="form-control target-input" id="inputForestArea" min="${this.props.inputs.indicatorMinValue}" step="any">
@@ -73,38 +76,29 @@ export default class TargetsFormComponent extends AppComponent {
                                 Please enter valid value
                             </div>
                             </div>
-                        <div class="col-3 col-sm-2 my-auto">
-                            <span>${this.props.targets.forestAreaUnit}</span>
-                        </div>
                     </div>
                 </div>
 
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputRenewableEnergy" class="form-label col-md-3">Renewable energy share:</label>
+                    <label for="inputRenewableEnergy" class="form-label col-md-3"><span>${this.props.labels.RenewableEnergyShare}</span> (${this.props.targets.RenewableEnergyShareUnit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
                             <input type="number" class="form-control target-input" id="inputRenewableEnergy" min="${this.props.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
                                 Please enter valid value
                             </div>
-                            </div>
-                        <div class="col-3 col-sm-2 my-auto">
-                            <span>${this.props.targets.RenewableEnergyShareUnit}</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputPM2-5" class="form-label col-md-3">PM2.5 exposure:</label>
+                    <label for="inputPM2-5" class="form-label col-md-3"><span>${this.props.labels.pm25}</span> (${this.props.targets.pm25Unit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
                             <input type="number" class="form-control target-input" id="inputPM2-5" min="${this.props.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
                                 Please enter valid value
                             </div>
-                        </div>
-                        <div class="col-3 col-sm-2 my-auto">
-                            <span>${this.props.targets.pm25Unit}</span>
                         </div>
                     </div>
                 </div>
@@ -139,8 +133,7 @@ export default class TargetsFormComponent extends AppComponent {
     validateIndicatorValue(input) {
         const validityState = input.validity;
 
-        let label = input.labels[0].textContent;
-        label = label.replace(":", "");
+        const label = input.labels[0].firstChild.textContent;
 
         const invalidYearFeeback = document.querySelector(
             `#${input.getAttribute("id")} + .invalid-feedback`,
@@ -169,7 +162,7 @@ export default class TargetsFormComponent extends AppComponent {
 
         for (let i = 0; i < targets.length; i++) {
             const value = targets[i].value;
-            if (targets[i].validity.badInput) {
+            if (targets[i].value.length > 0 || targets[i].validity.badInput) {
                 hasOneTargetSetMin = true;
                 this.validateIndicatorValue(targets[i]);
             }
