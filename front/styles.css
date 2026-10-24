@@ -1,0 +1,22 @@
+/*******************************************************/
+/*                                                     */
+/*                     COMMON CSS                      */
+/*                                                     */
+/*******************************************************/
+:root {
+    --darkblue-pp: #16324f;
+    --green-pp: #248232;
+    --blue-pp: #1976d2;
+    --background-pp: #f3f7fa;
+    --white-pp: #ffffff;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background-pp);
+}
+
+h1 {
+    color: var(--darkblue-pp) !important;
+}

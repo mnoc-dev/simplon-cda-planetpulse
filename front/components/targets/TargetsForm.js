@@ -1,40 +1,26 @@
-import AppComponent from "../../AppComponent.js";
-
-import styles from "./targets-form.css" with { type: "css" };
+import AppComponent from "../AppComponent.js";
+import "../buttons/FormButton.js";
 
 export default class TargetsFormComponent extends AppComponent {
-    #props = {
-        targets: {
-            co2EmissionsUnit: "tonnes",
-            forestAreaUnit: "%",
-            RenewableEnergyShareUnit: "%",
-            pm25Unit: "µg/m<sup>3</sup>",
-        },
-        labels: {
-            co2Emissions: "CO2 emissions",
-            forestArea: "Forest area",
-            RenewableEnergyShare: "Renewable energy share",
-            pm25: "PM2.5 Exposure",
-        },
-        inputs: {
-            yearMinValue: new Date().getFullYear(),
-            indicatorMinValue: 0.01,
-        },
-    };
-
-    connectedCallback() {
-        this.beforeRender();
-        this.#render();
-        this.afterRender();
-    }
-
-    get props() {
-        return this.#props;
-    }
-
-    #render() {
-        this.innerHTML = this.template();
-        document.adoptedStyleSheets.push(styles);
+    beforeRender() {
+        this.state = {
+            targets: {
+                co2EmissionsUnit: "tonnes",
+                forestAreaUnit: "%",
+                RenewableEnergyShareUnit: "%",
+                pm25Unit: "µg/m<sup>3</sup>",
+            },
+            labels: {
+                co2Emissions: "CO2 emissions",
+                forestArea: "Forest area",
+                RenewableEnergyShare: "Renewable energy share",
+                pm25: "PM2.5 Exposure",
+            },
+            inputs: {
+                yearMinValue: new Date().getFullYear(),
+                indicatorMinValue: 0.01,
+            },
+        };
     }
 
     template() {
@@ -43,7 +29,7 @@ export default class TargetsFormComponent extends AppComponent {
             <div class="mb-3 row input-group has-validation">
                 <label for="inputYear" class="col-auto col-form-label">Target year:</label>
                 <div class="col-5 col-sm-3">
-                    <input type="number" class="form-control" id="inputYear" min=${this.props.inputs.yearMinValue + 1} required>
+                    <input type="number" class="form-control" id="inputYear" min=${this.state.inputs.yearMinValue + 1} required>
                     <div class="invalid-feedback">
                         Year is required
                     </div>
@@ -56,10 +42,10 @@ export default class TargetsFormComponent extends AppComponent {
                         At least one target must be set
                 </div>
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputCo2" class="form-label col-md-3"><span>${this.props.labels.co2Emissions}</span> (${this.props.targets.co2EmissionsUnit}):</label>
+                    <label for="inputCo2" class="form-label col-md-3"><span>${this.state.labels.co2Emissions}</span> (${this.state.targets.co2EmissionsUnit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control target-input" id="inputCo2" min="${this.props.inputs.indicatorMinValue}" step="any">
+                            <input type="number" class="form-control target-input" id="inputCo2" min="${this.state.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
                                 Please enter valid value
                             </div>
@@ -68,10 +54,10 @@ export default class TargetsFormComponent extends AppComponent {
                 </div>
 
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputForestArea" class="form-label col-md-3"><span>${this.props.labels.forestArea}</span> (${this.props.targets.forestAreaUnit}):</label>
+                    <label for="inputForestArea" class="form-label col-md-3"><span>${this.state.labels.forestArea}</span> (${this.state.targets.forestAreaUnit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control target-input" id="inputForestArea" min="${this.props.inputs.indicatorMinValue}" step="any">
+                            <input type="number" class="form-control target-input" id="inputForestArea" min="${this.state.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
                                 Please enter valid value
                             </div>
@@ -80,10 +66,10 @@ export default class TargetsFormComponent extends AppComponent {
                 </div>
 
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputRenewableEnergy" class="form-label col-md-3"><span>${this.props.labels.RenewableEnergyShare}</span> (${this.props.targets.RenewableEnergyShareUnit}):</label>
+                    <label for="inputRenewableEnergy" class="form-label col-md-3"><span>${this.state.labels.RenewableEnergyShare}</span> (${this.state.targets.RenewableEnergyShareUnit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control target-input" id="inputRenewableEnergy" min="${this.props.inputs.indicatorMinValue}" step="any">
+                            <input type="number" class="form-control target-input" id="inputRenewableEnergy" min="${this.state.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
                                 Please enter valid value
                             </div>
@@ -92,10 +78,10 @@ export default class TargetsFormComponent extends AppComponent {
                 </div>
 
                 <div class="mb-3 d-md-flex align-items-center gap-3">
-                    <label for="inputPM2-5" class="form-label col-md-3"><span>${this.props.labels.pm25}</span> (${this.props.targets.pm25Unit}):</label>
+                    <label for="inputPM2-5" class="form-label col-md-3"><span>${this.state.labels.pm25}</span> (${this.state.targets.pm25Unit}):</label>
                     <div class="row flex-grow-1">
                         <div class="col">
-                            <input type="number" class="form-control target-input" id="inputPM2-5" min="${this.props.inputs.indicatorMinValue}" step="any">
+                            <input type="number" class="form-control target-input" id="inputPM2-5" min="${this.state.inputs.indicatorMinValue}" step="any">
                             <div class="invalid-feedback">
                                 Please enter valid value
                             </div>
@@ -103,9 +89,6 @@ export default class TargetsFormComponent extends AppComponent {
                     </div>
                 </div>
             </fieldset>
-            <div class="d-flex justify-content-end mt-4">
-                <button type="submit" class="btn btn-pp">Create</button>
-            </div>
         </form>
         `;
     }
@@ -124,7 +107,7 @@ export default class TargetsFormComponent extends AppComponent {
             invalidYearFeeback.textContent = "Year is required";
         } else if (validityState.rangeUnderflow) {
             invalidYearFeeback.textContent =
-                "Year must be superior to " + this.props.inputs.yearMinValue;
+                "Year must be superior to " + this.state.inputs.yearMinValue;
         } else {
             input.setCustomValidity("");
         }
@@ -147,7 +130,7 @@ export default class TargetsFormComponent extends AppComponent {
             invalidYearFeeback.textContent =
                 label +
                 " must be equal to or greater than " +
-                this.props.inputs.indicatorMinValue;
+                this.state.inputs.indicatorMinValue;
         } else {
             input.setCustomValidity("");
         }
@@ -193,6 +176,48 @@ export default class TargetsFormComponent extends AppComponent {
             },
             false,
         );
+
+        this.attachChild(form, "app-form-button", { action: "Créer" });
+
+        const styleSheet = new CSSStyleSheet();
+
+        styleSheet.replaceSync(`
+            .form-control.is-valid,
+            .was-validated .form-control:valid {
+                background-image: none;
+                border-color: #dee2e6;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            /* Small devices (landscape phones, 576px and up) */
+            @media (min-width: 576px) {
+                main {
+                    padding: 5%;
+                }
+            }
+
+            /* Medium devices (tablets, 768px and up) */
+            @media (min-width: 768px) {
+                main {
+                    padding-left: 10%;
+                    padding-right: 10%;
+                }
+            }
+
+            /* Large devices (desktops, 992px and up) */
+            @media (min-width: 992px) {
+                main {
+                    padding-left: 15%;
+                    padding-right: 15%;
+                }
+            }
+        `);
+
+        document.adoptedStyleSheets.push(styleSheet);
+
         return;
     }
 }
