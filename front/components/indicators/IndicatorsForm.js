@@ -1,6 +1,6 @@
-import AppComponent from "../../component/AppComponent.js"
+import AppComponent from "../AppComponent.js"
 
-class IndicatorsFormComponent extends AppComponent {
+class IndicatorsForm extends AppComponent {
 
       beforeRender() {
 
@@ -32,21 +32,33 @@ class IndicatorsFormComponent extends AppComponent {
     template(){
         return/*HTML*/`
     <h2>indicators page</h2>
-    <form>
-    <div class="mb-3>
-    <div class="">
-    <label for="inputYear" class="">year</label>
-    <input type="number" class="form-control" id="inputYear" required>
+    <form id="add-indicator-form" class="needs-validation" novalidate>
+    <div class="mb-3 row input-group has-validation">
+        <label for="inputYear" class="col-auto col-form-label">year</label>
+    <div class="col-5 col-sm-3">
+      <input type="number" class="form-control" id="inputYear" min=${this.state.inputs.yearMinValue + 1} required>
+      <div class="invalid-feedback">
+       Year is required
+      </div>
+    </div>
   </div>
 
-  <div class="">
-  <label for "co2Emission" class=""> Co2 emission/tonnes</label>
+  <fieldset class="d-flex flex-column gap-md-4">
+    <legend>Indicators</legend>
+                 <div class="target-missing invalid-feedback mb-3">
+                        At least one target must be set</div>
+  
+  </fieldset>
+              
+
+  <div class="col-5 col-sm-3">
+  <label for ="co2Emission" class=""> Co2 emission/tonnes</label>
   <input type="number" class="form-control" id="co2Emission">
   </div>
 
           <div class="">
     <label for"renewableEnergyShare" class="">Renewable Energy Share/percent</label>
-    <input type="number" class="form-control" id="RenewableEnergyShare">
+    <input type="number" class="form-control" id="renewableEnergyShare">
   </div>
 
           <div class="">
@@ -55,7 +67,7 @@ class IndicatorsFormComponent extends AppComponent {
   </div>
 
       <div class="">
-    <label for"pm25" class="">PM25 exposure/µg/m<sup>3</sup></label>
+    <label for"pm25Exposure" class="">PM25 exposure/µg/m<sup>3</sup></label>
     <input type="number" class="form-control" id="pm25Exposure">
   </div>
     
@@ -80,6 +92,6 @@ class IndicatorsFormComponent extends AppComponent {
 
 }
 
-customElements.define("indicators-form", IndicatorsFormComponent)
+customElements.define("indicators-form", IndicatorsForm)
   
 

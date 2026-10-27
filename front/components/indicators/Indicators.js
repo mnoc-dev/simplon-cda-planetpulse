@@ -1,5 +1,5 @@
-import './IndicatorsFormComponent.js';
-import AppComponent from '../AppComponent.js';
+import './IndicatorsForm.js';
+import AppComponent from '../../components/AppComponent.js';
 
 class IndicatorsPage extends AppComponent {
 
