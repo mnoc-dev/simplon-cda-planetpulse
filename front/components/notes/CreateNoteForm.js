@@ -80,8 +80,16 @@ export default class CreateNoteForm extends AppComponent{
         if (!form.checkValidity()) {
             
             return; // Stop if the form is invalid
-        }      
-        console.log('Form is valid');
+        }  
+        const formData = new FormData(form);
+        const noteData = {
+            title: formData.get('title'),
+            date: formData.get('date'),
+            content: formData.get('content'),
+            countryCode: this.state.countryCode
+        };
+        console.log('Form is valid', noteData);
+        //TODO Here i will send the noteData to backend (fetch API call)
 }
 }
 customElements.define('create-note-form', CreateNoteForm);
