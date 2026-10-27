@@ -7,8 +7,8 @@ class AppHeader extends AppComponent {
             <nav class="navbar navbar-expand-lg px-3 px-md-4 py-3" aria-label="Main navigation">
                 <div class="container-fluid">
                     <a class="navbar-brand d-flex align-items-center gap-2" href="/country-list.html" aria-label="PlanetPulse - Home">
-                        <img class="logo-icon" src="/assets/images/planet.png" alt="logo PlanetPulse">
-                        <img class="logo-name" src="/assets/images/planetpulse.png" alt="PlanetPulse">
+                        <img class="logo-icon" src="/front/assets/images/planet.png" alt="logo PlanetPulse">
+                        <img class="logo-name" src="/front/assets/images/planetpulse.png" alt="PlanetPulse">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#app-header-navigation" aria-controls="app-header-navigation"
