@@ -1,0 +1,25 @@
+app-header {
+    display: block;
+}
+
+/* Bootstrap handles the layout and responsive menu. */
+app-header .navbar {
+    background-color: #edf6fa;
+    --bs-navbar-color: #003354;
+    --bs-navbar-hover-color: #003354;
+}
+
+app-header .nav-link:hover {
+    text-decoration: underline;
+}
+
+app-header .logo-icon {
+    width: 60px;
+    height: auto;
+}
+
+app-header .logo-name {
+    width: 200px;
+    max-width: 40vw;
+    height: auto;
+}
