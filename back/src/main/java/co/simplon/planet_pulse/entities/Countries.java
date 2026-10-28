@@ -21,6 +21,15 @@ public class Countries {
 	@Column(name = "country_name")
 	private String country;
 	
+	@Column(name = "url_flag")
+	private Integer population;
+	
+	@Column(name = "area_km")
+	private Double areaKm;
+	
+	@Column(name = "id_subregion")
+	private Long idSubregion;
+	
 	public Long getId() {
 		return id;
 	}
@@ -44,6 +53,7 @@ public class Countries {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	
 
 	public Integer getPopulation() {
 		return population;
@@ -69,12 +79,5 @@ public class Countries {
 		this.idSubregion = idSubregion;
 	}
 
-	@Column(name = "url_flag")
-	private Integer population;
 	
-	@Column(name = "area_km")
-	private Double areaKm;
-	
-	@Column(name = "id_subregion")
-	private Long idSubregion;
 }
