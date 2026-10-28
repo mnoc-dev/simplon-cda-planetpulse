@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS t_countries CASCADE;
+
+DROP TABLE IF EXISTS t_subregions CASCADE;
+
+DROP TABLE IF EXISTS t_regions CASCADE;
+
+
