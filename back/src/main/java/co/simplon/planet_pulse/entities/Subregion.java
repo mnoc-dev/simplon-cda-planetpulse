@@ -18,7 +18,7 @@ public class Subregion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "subregion", unique = true, nullable = false)
+	@Column(name = "subregion")
 	private String subregion;
 	
 	@Column(name = "id_region")

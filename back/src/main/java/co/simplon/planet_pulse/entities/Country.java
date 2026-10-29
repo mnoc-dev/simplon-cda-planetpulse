@@ -15,22 +15,22 @@ public class Country {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "iso_code", unique = true, nullable = false)
+	@Column(name = "iso_code")
 	private String isoCode;
 	
-	@Column(name = "country_name", unique = true, nullable = false)
+	@Column(name = "country_name")
 	private String country;
 	
-	@Column(name = "url_flag", unique = true, nullable = false)
+	@Column(name = "url_flag")
 	private String urlFlag;
 	
-	@Column(name = "area_km", nullable = false)
+	@Column(name = "area_km")
 	private Double areaKm;
 	
-	@Column(name = "population", nullable = false)
+	@Column(name = "population")
 	private Integer population;
 	
-	@Column(name = "id_subregion", unique = true, nullable = false)
+	@Column(name = "id_subregion")
 	private Long idSubregion;
 	
 	public Long getId() {

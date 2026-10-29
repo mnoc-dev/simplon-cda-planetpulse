@@ -20,7 +20,7 @@ public class Region {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "region", unique = true, nullable = false)
+	@Column(name = "region")
 	private String region;
 	
 	@OneToMany(mappedBy = "region")
