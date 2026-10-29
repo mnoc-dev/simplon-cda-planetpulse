@@ -43,16 +43,10 @@ class IndicatorsForm extends AppComponent {
     </div>
   </div>
 
-  <fieldset class="d-flex flex-column gap-md-4">
-    <legend>Indicators</legend>
-                 <div class="target-missing invalid-feedback mb-3">
-                        At least one target must be set</div>
   
-  </fieldset>
-              
-
-  <div class="col-5 col-sm-3">
-  <label for ="co2Emission" class=""> Co2 emission/tonnes</label>
+            
+  <div class="mb-3 md-flex align-items-center gap-3">
+  <label for ="inputCo2" class="form-label" col-md-3><span>${this.state.labels.co2Emissions}(${this.state.indicators.Co2EmissionUnit}:</span> Co2 emission/tonnes</label>
   <input type="number" class="form-control" id="co2Emission">
   </div>
 
