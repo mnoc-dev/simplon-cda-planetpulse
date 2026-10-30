@@ -40,6 +40,8 @@ public class ImportService {
 	public ImportView importCountries() {
 
 		if (countryRepository.count() > 0) {
+			throw new RuntimeException("Import already done.");
+		}
 			
 			int[] offsets = {0, 100,200};
 			
@@ -51,7 +53,7 @@ public class ImportService {
 					
 					String response = restClient.get()
 							.uri(url)
-							.header("Authorization", "Bearer" + apiKey)
+							.header("Authorization", "Bearer " + apiKey)
 							.retrieve()
 							.body(String.class);
 			        System.out.println("Réponse reçue de l'offset " + offset + " (début) : " + response.substring(0, 100));
@@ -60,8 +62,6 @@ public class ImportService {
 					System.out.println("Erreur pour l'offset" + offset + ":" + e.getMessage());
 				}
 			}
-			throw new RuntimeException("Import already done.");
-		}
 		return new ImportView(0, "not yet imp");
 	}
 
