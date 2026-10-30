@@ -1,5 +1,6 @@
 package co.simplon.planet_pulse.dtos.in;
 
+import co.simplon.planet_pulse.dtos.in.validators.constraints.FutureYear;
 import jakarta.validation.constraints.*;
 
 public record TargetEdit (
@@ -9,6 +10,7 @@ public record TargetEdit (
     Integer countryId,
 
     @NotNull
+    @FutureYear
     Integer targetYear,
 
     @DecimalMin("0.01")
