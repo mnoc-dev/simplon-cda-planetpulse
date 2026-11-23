@@ -1,8 +1,10 @@
 package co.simplon.planet_pulse.dtos.in;
 
 import co.simplon.planet_pulse.dtos.in.validators.constraints.FutureYear;
+import co.simplon.planet_pulse.dtos.in.validators.constraints.MinOneIndicator;
 import jakarta.validation.constraints.*;
 
+@MinOneIndicator
 public record TargetEdit (
 
     @NotNull
