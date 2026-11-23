@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.planet_pulse.dtos.ImportView;
+
+import co.simplon.planet_pulse.dtos.out.CountryDtoOut;
 import co.simplon.planet_pulse.services.ImportService;
 
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,14 +25,14 @@ public class ImportController {
 	
 	private final ImportService service;
 
-    // Injection de dépendance par le constructeur
+    // Dependencies injection
     public ImportController(ImportService service) {
         this.service = service;
     }
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ImportView importCountries() {
+	public CountryDtoOut importCountries() {
 		return service.importCountries();
 	}
 	
