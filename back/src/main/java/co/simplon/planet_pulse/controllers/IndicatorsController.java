@@ -18,7 +18,7 @@ public class IndicatorsController {
 	private final IndicatorsService service;
 
 	public IndicatorsController(IndicatorsService service) {
-		this.service = service;e
+		this.service = service;
 	}
 
 	@GetMapping("/{id}")

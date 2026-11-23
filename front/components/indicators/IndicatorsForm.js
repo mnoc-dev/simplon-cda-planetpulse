@@ -65,22 +65,69 @@ class IndicatorsForm extends AppComponent {
     <input type="number" class="form-control" id="pm25Exposure">
   </div>
     
-    </div>
+
     
 
 </form>
 
        
-         `     
+         ` ;   
     }
+
+    validateYear() {
+      const userInput = document.getElementById("inputYear");
+      const logElement = document.getElementById("log");
+
+      function log(text){
+        logElement.innerText = text;
+      }
+
+      input.addEventListener("input", () => {
+        userInput.reporValidity();
+        if(userInput.validity.valid) {
+          log("Input OK...");
+        }
+        else{
+          log("bad input detected")
+        }
+      });
+    }
+/**  validateYear() {
+      const input = document.getElementById("inputYear");
+      const validityState = input.validity;
+
+      const invalidYear = document.querySelector("#inputYear + .invalid-feedback",);
+
+      invalidYear.addEventListener("input", () => {
+        input.reportValidity();
+        if(input.validity.badinput){
+          log(`bad input detected: ${input.validationMessage}`);
+        }
+      });
+
+    } */
+  
+
+    
 
     afterRender() {
         this.#handleIndicators();
+
+        const form = document.getElementById("add-indicator-form");
+
+        form.addEventListener(
+          "submit",
+          (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          });
     }
+      
+    
 
     #handleIndicators() {
-        const parent = this.querySelector('#form');
-        this.attachChildren(parent, 'indicator-item');
+        const parent = this.querySelector('#form')
+        this.attachChildren(parent, 'indicator-item')
     }
 
 
