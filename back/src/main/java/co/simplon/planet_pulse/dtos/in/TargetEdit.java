@@ -24,7 +24,7 @@ public record TargetEdit (
 
     @DecimalMin("0.01")
     @Digits(integer = 3, fraction = 2)
-    Double particulateMatter25,
+    Double pm25Exposure,
 
     @DecimalMin("0.01")
     @DecimalMax("100.00")
