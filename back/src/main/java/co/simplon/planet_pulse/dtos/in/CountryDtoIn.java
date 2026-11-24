@@ -1,8 +1,8 @@
 package co.simplon.planet_pulse.dtos.in;
 
-public record CountryDtoIn(String isoCode, String commonName, String flagUrl, Long population, Double area, String region, String subregion) {
+public record CountryDtoIn(NameDto names, CodeDto codes, FlagDto flag, String region, String subregion, AreaDto kilometers, Long population) {
 
-	//immutable
-	//auto generated constructor and accessor
-	//names in params must match with JSON names
+	// immutable
+	// auto generated constructor and accessor
+	// names in params must match with JSON names
 }

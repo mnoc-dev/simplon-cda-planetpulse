@@ -41,16 +41,32 @@ public class ImportService {
     
     private String buildUrl(int offset) {
     	String offsetParam = "";
-    	String buildUrl = baseUrl + fields + "&limit=100" + offsetParam + "&pretty=1";
+    	String buildedUrl = baseUrl + fields + "&limit=100" + offsetParam + "&pretty=1";
     	if(offset > 0) {
     		offsetParam = "&offset=" + offset;
     	}else {
     		offsetParam = "";
     	}
-    	return buildUrl;
+    	return buildedUrl;
+    }
+    
+    private String fetchRawJson(String url) {
+    	return restClient.get()
+    			.uri(url)
+    			.header("Authorization", "Bearer " + key)
+    			.retrieve()
+    			.body(String.class);
     }
     
     public CountryDtoOut importCountries() {
+    	String url = buildUrl(0);
+        IO.println("Appel URL : " + url);
+    	try {
+    		String response = fetchRawJson(url);
+    		IO.println("Réponse brute (début) : " + response.substring(0, 2000));
+    	} catch (Exception e) {
+    		IO.println("Erreur: " + e.getMessage());
+    	}
         return new CountryDtoOut(0);
     }
 
