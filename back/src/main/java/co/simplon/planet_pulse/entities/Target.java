@@ -1,5 +1,6 @@
 package co.simplon.planet_pulse.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,6 +27,62 @@ public class Target {
     private Double renewableEnergyShare;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    @JoinColumn(name = "id_country", referencedColumnName = "id")
+    @JsonBackReference
     private Country country;
+
+    public Target() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public Double getCo2Emissions() {
+        return co2Emissions;
+    }
+
+    public Double getForestArea() {
+        return forestArea;
+    }
+
+    public Double getPm25Exposure() {
+        return pm25Exposure;
+    }
+
+    public Double getRenewableEnergyShare() {
+        return renewableEnergyShare;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public void setCo2Emissions(Double co2Emissions) {
+        this.co2Emissions = co2Emissions;
+    }
+
+    public void setForestArea(Double forestArea) {
+        this.forestArea = forestArea;
+    }
+
+    public void setPm25Exposure(Double pm25Exposure) {
+        this.pm25Exposure = pm25Exposure;
+    }
+
+    public void setRenewableEnergyShare(Double renewableEnergyShare) {
+        this.renewableEnergyShare = renewableEnergyShare;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 }

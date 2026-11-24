@@ -9,7 +9,7 @@ public record TargetEdit (
 
     @NotNull
     @Positive
-    Integer countryId,
+    Long countryId,
 
     @NotNull
     @FutureYear
@@ -17,7 +17,7 @@ public record TargetEdit (
 
     @DecimalMin("0.01")
     @Digits(integer = 10, fraction = 2)
-    Double c02Emissions,
+    Double co2Emissions,
 
     @DecimalMin("0.01")
     @DecimalMax("100.00")

@@ -14,7 +14,7 @@ public class MinOneIndicatorValidator implements ConstraintValidator<MinOneIndic
 
     @Override
     public boolean isValid(TargetEdit value, ConstraintValidatorContext context) {
-        if(value.c02Emissions() == null && value.forestArea() == null && value.pm25Exposure() == null && value.renewableEnergyShare() == null ){
+        if(value.co2Emissions() == null && value.forestArea() == null && value.pm25Exposure() == null && value.renewableEnergyShare() == null ){
             return false;
         }
         return true;
