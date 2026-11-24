@@ -1,6 +1,8 @@
 package co.simplon.planet_pulse.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 import co.simplon.planet_pulse.dtos.out.CountryDtoOut;
@@ -9,6 +11,7 @@ import co.simplon.planet_pulse.repositories.RegionRepository;
 import co.simplon.planet_pulse.repositories.SubregionRepository;
 
 @Service
+
 public class ImportService {
 
     private final CountryRepository countryRepository;
@@ -26,7 +29,30 @@ public class ImportService {
         this.restClient = restClient.build();
     }
 
+    @Value("${api.restcountries.base-url}")
+    private String baseUrl;
+    
+    @Value("${api.restcountries.fields}")
+    private String fields;
+    
+    @Value("${api.restcountries.key}")
+    private String key;
+    
+    
+    private String buildUrl(int offset) {
+    	String offsetParam = "";
+    	String buildUrl = baseUrl + fields + "&limit=100" + offsetParam + "&pretty=1";
+    	if(offset > 0) {
+    		offsetParam = "&offset=" + offset;
+    	}else {
+    		offsetParam = "";
+    	}
+    	return buildUrl;
+    }
+    
     public CountryDtoOut importCountries() {
         return new CountryDtoOut(0);
     }
+
+
 }
