@@ -1,6 +1,7 @@
 package co.simplon.planet_pulse.services;
 
 import co.simplon.planet_pulse.dtos.in.CreateNoteDto;
+import co.simplon.planet_pulse.dtos.out.NoteResponseDto;
 import co.simplon.planet_pulse.entities.Note;
 import co.simplon.planet_pulse.repositories.NoteRepository;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class NoteService {
         this.noteRepository = noteRepository;
 
     }
-    public Note createNote(CreateNoteDto createNoteDto) {
+    public NoteResponseDto createNote(CreateNoteDto createNoteDto) {
         Note note = new Note();
         note.setTitle(createNoteDto.title());
         note.setContent(createNoteDto.content());
@@ -25,7 +26,16 @@ public class NoteService {
         } else {
             note.setDateReport(createNoteDto.dateReport());
         }
-        return noteRepository.save(note);
+        Note savedNote =  noteRepository.save(note);
+        return new NoteResponseDto(
+        savedNote.getIdNote(),
+        savedNote.getCreationDate(),
+        savedNote.getTitle(),
+        savedNote.getContent(),
+        savedNote.getIdCountry(),
+        savedNote.getDateReport()
+        );
+
         }
     }
 

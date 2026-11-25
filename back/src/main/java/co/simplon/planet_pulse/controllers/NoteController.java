@@ -1,7 +1,7 @@
 package co.simplon.planet_pulse.controllers;
 
 import co.simplon.planet_pulse.dtos.in.CreateNoteDto;
-import co.simplon.planet_pulse.entities.Note;
+import co.simplon.planet_pulse.dtos.out.NoteResponseDto;
 import co.simplon.planet_pulse.services.NoteService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class NoteController {
         this.noteService = noteService;
     }
     @PostMapping
-    public Note createNote(@RequestBody @Valid CreateNoteDto createNoteDto) {
+    public NoteResponseDto createNote(@RequestBody @Valid CreateNoteDto createNoteDto) {
         return noteService.createNote(createNoteDto);
     }
 }
