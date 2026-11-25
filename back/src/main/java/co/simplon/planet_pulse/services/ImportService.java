@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClient;
 import co.simplon.planet_pulse.dtos.in.CountryDtoIn;
 import co.simplon.planet_pulse.dtos.in.RestCountriesResponse;
 import co.simplon.planet_pulse.dtos.out.CountryDtoOut;
+import co.simplon.planet_pulse.entities.Countries;
 import co.simplon.planet_pulse.repositories.CountryRepository;
 import co.simplon.planet_pulse.repositories.RegionRepository;
 import co.simplon.planet_pulse.repositories.SubregionRepository;
@@ -73,7 +74,16 @@ public class ImportService {
     //Envoi d'une requête get avec l'url construit dans buildUrl() et assigné à url dans importCountries()
     //Add the given, single header value under the given name.
     //Récupèrer la reponse en string.
-    
+    private Countries toEntity(CountryDtoIn dto) {
+        Countries entity = new Countries();
+        entity.setIsoCode(dto.codes().alpha_2());
+        entity.setCountry(dto.names().common());
+        entity.setUrlFlag(dto.flag().url_svg());
+        entity.setPopulation(dto.population());
+        entity.setAreaKm(dto.area().kilometers());
+        entity.setIdSubregion(null); // à remplir plus tard
+        return entity;
+    }
     
     public CountryDtoOut importCountries() {
     	String url = buildUrl(0);
@@ -96,10 +106,14 @@ public class ImportService {
     				.toList();
     		IO.println("Pays complets: " + completeCountries.size() + "/" + countries.size());
     		//Pipeline 
-    		
-    		if(!countries.isEmpty()) {
-    			IO.println("Premier pays" + countries.get(0));
+    		// ─── ÉTAPE 7 : sauvegarder UN pays (pour vérifier) ───
+    		if (!completeCountries.isEmpty()) {
+    		    CountryDtoIn first = completeCountries.get(0);
+    		    Countries entity = toEntity(first);
+    		    countryRepository.save(entity);
+    		    IO.println("Premier pays sauvegardé : " + entity.getCountry());
     		}
+    		
 
     	} catch (Exception e) {
     		IO.println("Erreur: " + e.getMessage());

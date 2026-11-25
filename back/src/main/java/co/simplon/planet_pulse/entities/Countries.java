@@ -15,6 +15,14 @@ public class Countries {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	public String getUrlFlag() {
+		return urlFlag;
+	}
+
+	public void setUrlFlag(String urlFlag) {
+		this.urlFlag = urlFlag;
+	}
+
 	@Column(name = "iso_code")
 	private String isoCode;
 	
@@ -24,15 +32,15 @@ public class Countries {
 	@Column(name = "url_flag")
 	private String urlFlag;
 	
-	@Column(name = "population")
-	private Long population;
-	
 	@Column(name = "area_km")
 	private Double areaKm;
 	
+	@Column(name = "population")
+	private Long population;
+	
 	@Column(name = "id_subregion")
 	private Long idSubregion;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -56,14 +64,7 @@ public class Countries {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
-	public String getUrlFlag() {
-		return urlFlag;
-	}
-
-	public void setUrlFlag(String urlFlag) {
-		this.urlFlag = urlFlag;
-	}
+	
 
 	public Long getPopulation() {
 		return population;
@@ -88,5 +89,6 @@ public class Countries {
 	public void setIdSubregion(Long idSubregion) {
 		this.idSubregion = idSubregion;
 	}
+
 	
 }

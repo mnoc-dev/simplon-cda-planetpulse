@@ -2,9 +2,12 @@ package co.simplon.planet_pulse.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,8 +21,17 @@ public class Subregions {
 	@Column(name = "subregion")
 	private String subregion;
 	
-	@Column(name = "id_region")
-	private Integer idRegion;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_region", unique = true, nullable = false)
+	private Regions regions;
+	
+	public Regions getRegion() {
+		return regions;
+	}
+
+	public void setRegion(Regions regions) {
+		this.regions = regions;
+	}
 
 	public Long getId() {
 		return id;
@@ -37,11 +49,4 @@ public class Subregions {
 		this.subregion = subregion;
 	}
 
-	public Integer getIdRegion() {
-		return idRegion;
-	}
-
-	public void setIdRegion(Integer idRegion) {
-		this.idRegion = idRegion;
-	}
 }
