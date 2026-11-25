@@ -8,11 +8,17 @@ public record CountryDtoIn(NamesDto names, CodesDto codes, FlagDto flag, String 
 	
 	public boolean isComplete() {
 		return names != null && names.isComplete()
+				
 				&& codes != null && codes.isComplete()
+				
 				&& flag != null && flag.isComplete()
+				
 				&& region != null && !region.isBlank()
+				
 				&& subregion != null && !subregion.isBlank()
+				
 				&& area != null && area.kilometers() != null
+				
 				&& population != null;
 		
 	}

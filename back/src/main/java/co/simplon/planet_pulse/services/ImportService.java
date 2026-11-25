@@ -24,6 +24,7 @@ public class ImportService {
     private final SubregionRepository subregionRepository;
     private final RestClient restClient;
     private final ObjectMapper objectMapper;
+    //assignation
 
     public ImportService(CountryRepository countryRepository,
                          RegionRepository regionRepository,
@@ -36,7 +37,8 @@ public class ImportService {
         this.restClient = restClient.build();
         this.objectMapper = objectMapper;
     }
-
+    //constructor
+    
     @Value("${api.restcountries.base-url}")
     private String baseUrl;
     
@@ -45,18 +47,21 @@ public class ImportService {
     
     @Value("${api.restcountries.key}")
     private String key;
-    
+    //injection de dépendance
     
     private String buildUrl(int offset) {
     	String offsetParam = "";
-    	String buildedUrl = baseUrl + fields + "&limit=100" + offsetParam + "&pretty=1";
+    	
     	if(offset > 0) {
     		offsetParam = "&offset=" + offset;
     	}else {
     		offsetParam = "";
     	}
+    	String buildedUrl = baseUrl + fields + "&limit=100" + offsetParam + "&pretty=1";
+    	
     	return buildedUrl;
     }
+    //Concaténation de l'url
     
     private String fetchRawJson(String url) {
     	return restClient.get()
@@ -65,6 +70,10 @@ public class ImportService {
     			.retrieve()
     			.body(String.class);
     }
+    //Envoi d'une requête get avec l'url construit dans buildUrl() et assigné à url dans importCountries()
+    //Add the given, single header value under the given name.
+    //Récupèrer la reponse en string.
+    
     
     public CountryDtoOut importCountries() {
     	String url = buildUrl(0);
@@ -75,10 +84,18 @@ public class ImportService {
     		String response = fetchRawJson(url);
     		
     		RestCountriesResponse parsed = objectMapper.readValue(response, RestCountriesResponse.class);
-    		//deserialize
+    		//deserialize: JSON to object
+    		
     		
     		List<CountryDtoIn> countries = parsed.data().objects();
     		IO.println("Nombre pays: " + countries.size());
+    		// Data structure to store 
+    		
+    		List<CountryDtoIn> completeCountries = countries.stream()
+    				.filter(CountryDtoIn::isComplete)
+    				.toList();
+    		IO.println("Pays complets: " + completeCountries.size() + "/" + countries.size());
+    		//Pipeline 
     		
     		if(!countries.isEmpty()) {
     			IO.println("Premier pays" + countries.get(0));
@@ -86,6 +103,7 @@ public class ImportService {
 
     	} catch (Exception e) {
     		IO.println("Erreur: " + e.getMessage());
+    		//
     	}
         return new CountryDtoOut(0);
     }
