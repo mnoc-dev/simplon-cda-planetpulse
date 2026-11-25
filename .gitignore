@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 database/tests
 front/data
 
@@ -9,6 +10,16 @@ target/
 application.properties
 
 STS
+=======
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+application.properties
+
+### STS ###
+>>>>>>> slice/countries-entities
 .apt_generated
 .classpath
 .factorypath
@@ -17,11 +28,20 @@ STS
 .springBeans
 .sts4-cache
 
+<<<<<<< HEAD
 IntelliJ IDEA
+=======
+### IntelliJ IDEA ###
+>>>>>>> slice/countries-entities
 .idea
 *.iws
 *.iml
 *.ipr
 
+<<<<<<< HEAD
 VS Code
 .vscode/
+=======
+### VS Code ###
+.vscode/
+>>>>>>> slice/countries-entities
