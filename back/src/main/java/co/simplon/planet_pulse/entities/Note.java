@@ -1,6 +1,9 @@
 package co.simplon.planet_pulse.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
+
 import java.time.Instant;
 import java.time.LocalDate;
 
@@ -10,6 +13,7 @@ public class Note {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idNote;
+    @Generated(event = EventType.INSERT)
     @Column(name="creation_date", insertable=false, updatable=false )
     private Instant creationDate;
     private String title;
