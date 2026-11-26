@@ -5,8 +5,7 @@ import ImportMessage from "../../components/import-countries/ImportMessage.js";
 export default class ImportPage extends AppComponent{
     template(){
         return `<h1>IMPORT COUNTRIES</h1>
-        <p>description of the import
-        </p>
+     
         <import-button></import-button>
         <import-message></import-message>
         `;

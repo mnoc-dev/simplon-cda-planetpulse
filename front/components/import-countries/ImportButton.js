@@ -54,17 +54,25 @@ export default class ImportButton extends AppComponent{
     async runImport(){
         //simulation of loading import
         try {
-            const response = await fetch('/api/import-countries');
+            const response = await fetch('http://localhost:8080/api/import-countries', {
+                method: 'POST'
+            });
 
-            if (!response.ok){
 
+           if (!response.ok) {
+            let message = `HTTP ${response.status}`;
+            try {
                 const errorData = await response.json();
-                throw new Error(errorData.message || "Error import");   
+                message = errorData.message || message;
+            } catch {
+                
+            }
+            throw new Error(message);
             }
 
             const data = await response.json();
             
-            this.onImportSuccess(data.count);
+            this.onImportSuccess(data.imported);
             
         } catch (error) {
             this.onImportError(error.message);
