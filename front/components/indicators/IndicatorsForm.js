@@ -21,6 +21,7 @@ class IndicatorsForm extends AppComponent {
       inputs: {
         yearMaxValue: new Date().getFullYear(),
         indicatorMinValue: 0.01,
+        indicatorMaxValuePercent: 100,
       },
     };
   }
@@ -54,12 +55,12 @@ class IndicatorsForm extends AppComponent {
 
           <div class="">
     <label for"renewableEnergyShare" class="form-label" col-md-3>Renewable Energy Share/percent</label>
-    <input type="number" class="form-control" id="renewableEnergyShare" min=${this.state.inputs.indicatorMinValue} step="0.01">
+    <input type="number" class="form-control" id="renewableEnergyShare" min="0" max=${this.state.inputs.indicatorMaxValuePercent} step="any" data-percent>
   </div>
 
           <div class="">
     <label for"forestArea" class="form-label" col-md-3>Forest area/percent</label>
-    <input type="number" class="form-control" id="forestArea" min=${this.state.inputs.indicatorMinValue} step="0.01">
+    <input type="number" class="form-control" id="forestArea" min="0" max=${this.state.inputs.indicatorMaxValuePercent} step="any" data-percent>
   </div>
 
       <div class="">
@@ -81,8 +82,21 @@ class IndicatorsForm extends AppComponent {
     ];
 
     const indicatorMissingFeedback = this.querySelector(".indicator-missing");
+    const percentInputs = indicators.filter((input) =>
+      input.hasAttribute("data-percent"),
+    );
     const hasValue = indicators.some((input) => input.value !== "");
     const allValid = indicators.every((input) => input.checkValidity());
+
+    percentInputs.forEach((input) => {
+      input.setCustomValidity("");
+
+      if (input.validity.rangeOverflow) {
+        input.setCustomValidity("the value shouldn't be a great 100%");
+      } else if (input.validity.rangeUnderflow) {
+        input.setCustomValidity("the values shouldn't be negaive");
+      }
+    });
 
     if (!hasValue) {
       indicatorMissingFeedback.style.display = "block";
