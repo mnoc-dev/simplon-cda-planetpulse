@@ -22,7 +22,7 @@ public class Subregions {
 	private String subregion;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_region", unique = true, nullable = false)
+	@JoinColumn(name = "id_region", nullable = false)
 	private Regions regions;
 	
 	public Regions getRegion() {
@@ -45,8 +45,12 @@ public class Subregions {
 		return subregion;
 	}
 
-	public void setSubregion(String subregion) {
-		this.subregion = subregion;
+	public void setSubregion(String sub) {
+		this.subregion = sub;
 	}
+
+
+
+
 
 }
