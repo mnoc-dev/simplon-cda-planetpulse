@@ -35,7 +35,7 @@ export default class AppComponent extends HTMLElement {
         parent.appendChild(child);
     }
 
-    // Appends mulitple child components to given parent container
+    // Appends multiple child components to given parent container
     attachChildren(parent, childTagName, dataset = []) {
         dataset.forEach((data) => {
             this.attachChild(parent, childTagName, data);
