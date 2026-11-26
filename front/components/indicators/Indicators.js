@@ -1,15 +1,14 @@
-import './IndicatorsForm.js';
-import AppComponent from '../../components/AppComponent.js';
+import "./IndicatorsForm.js";
+import AppComponent from "../../components/AppComponent.js";
 
 class IndicatorsPage extends AppComponent {
-
-    template() {
-        return /*html*/ `
+  template() {
+    return /*html*/ `
             <h1>Indicators page</h1>
             <p>Cette page permet d'ajouter des indicateurs par année.</p>
             <indicators-form></indicators-form>
         `;
-    }
+  }
 }
 
-customElements.define('indicators-page', IndicatorsPage);
+customElements.define("indicators-page", IndicatorsPage);
