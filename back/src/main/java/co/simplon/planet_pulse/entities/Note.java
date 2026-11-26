@@ -13,6 +13,9 @@ public class Note {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idNote;
+
+    // Date générée par PostgreSQL lors de l'insertion
+    // Hibernate récupère ensuite la valeur grâce à @Generated
     @Generated(event = EventType.INSERT)
     @Column(name="creation_date", insertable=false, updatable=false )
     private Instant creationDate;
