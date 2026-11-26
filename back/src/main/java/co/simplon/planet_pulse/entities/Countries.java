@@ -5,16 +5,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "t_countries")
-public class Country {
+public class Countries {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	public String getUrlFlag() {
+		return urlFlag;
+	}
+
+	public void setUrlFlag(String urlFlag) {
+		this.urlFlag = urlFlag;
+	}
+
 	@Column(name = "iso_code")
 	private String isoCode;
 	
@@ -28,10 +38,13 @@ public class Country {
 	private Double areaKm;
 	
 	@Column(name = "population")
-	private Integer population;
+	private Long population;
 	
-	@Column(name = "id_subregion")
-	private Long idSubregion;
+	@ManyToOne
+	@JoinColumn(name = "id_subregion")
+	private Subregions subregion;
+	
+	public Countries() {}
 	
 	public Long getId() {
 		return id;
@@ -58,11 +71,11 @@ public class Country {
 	}
 	
 
-	public Integer getPopulation() {
+	public Long getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(Integer population) {
+	public void setPopulation(Long population) {
 		this.population = population;
 	}
 
@@ -74,12 +87,12 @@ public class Country {
 		this.areaKm = areaKm;
 	}
 
-	public Long getIdSubregion() {
-		return idSubregion;
+	public Subregions getSubregion() {
+	    return subregion;
 	}
 
-	public void setIdSubregion(Long idSubregion) {
-		this.idSubregion = idSubregion;
+	public void setSubregion(Subregions subregion) {
+	    this.subregion = subregion;
 	}
 
 	

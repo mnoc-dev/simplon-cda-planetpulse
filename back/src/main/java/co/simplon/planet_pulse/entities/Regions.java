@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "t_regions")
-public class Region {
+public class Regions {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +23,15 @@ public class Region {
 	@Column(name = "region")
 	private String region;
 	
-	@OneToMany(mappedBy = "region")
-	private Set<Subregion> subregions;
+	@OneToMany(mappedBy = "regions")
+	private Set<Subregions> subregions;
 	
 	
-	public Set<Subregion> getSubregions() {
+	public Set<Subregions> getSubregions() {
 		return subregions;
 	}
 
-	public void setSubregions(Set<Subregion> subregions) {
+	public void setSubregions(Set<Subregions> subregions) {
 		this.subregions = subregions;
 	}
 

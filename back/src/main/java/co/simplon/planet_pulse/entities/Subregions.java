@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "t_subregions")
-public class Subregion {
+public class Subregions {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,19 +21,16 @@ public class Subregion {
 	@Column(name = "subregion")
 	private String subregion;
 	
-	@Column(name = "id_region")
-	private Integer idRegion;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_region", unique = true, nullable = false)
-	private Region region;
+	@JoinColumn(name = "id_region", nullable = false)
+	private Regions regions;
 	
-	public Region getRegion() {
-		return region;
+	public Regions getRegion() {
+		return regions;
 	}
 
-	public void setRegion(Region region) {
-		this.region = region;
+	public void setRegion(Regions regions) {
+		this.regions = regions;
 	}
 
 	public Long getId() {
@@ -41,22 +38,19 @@ public class Subregion {
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.id = id;git strategy
 	}
 
 	public String getSubregion() {
 		return subregion;
 	}
 
-	public void setSubregion(String subregion) {
-		this.subregion = subregion;
+	public void setSubregion(String sub) {
+		this.subregion = sub;
 	}
 
-	public Integer getIdRegion() {
-		return idRegion;
-	}
 
-	public void setIdRegion(Integer idRegion) {
-		this.idRegion = idRegion;
-	}
+
+
+
 }
