@@ -81,9 +81,10 @@ public class ImportService {
         entity.setUrlFlag(dto.flag().url_svg());
         entity.setPopulation(dto.population());
         entity.setAreaKm(dto.area().kilometers());
-        entity.setIdSubregion(null); // à remplir plus tard
+        entity.setSubregion(dto.region(), dto.subregion()); 
         return entity;
     }
+    
     
     public CountryDtoOut importCountries() {
     	String url = buildUrl(0);

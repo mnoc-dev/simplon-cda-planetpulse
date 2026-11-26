@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -38,8 +40,11 @@ public class Countries {
 	@Column(name = "population")
 	private Long population;
 	
-	@Column(name = "id_subregion")
-	private Long idSubregion;
+	@ManyToOne
+	@JoinColumn(name = "id_subregion")
+	private Subregions subregion;
+	
+	public Countries() {}
 	
 	public Long getId() {
 		return id;
@@ -82,12 +87,12 @@ public class Countries {
 		this.areaKm = areaKm;
 	}
 
-	public Long getIdSubregion() {
-		return idSubregion;
+	public Subregions getSubregion() {
+	    return subregion;
 	}
 
-	public void setIdSubregion(Long idSubregion) {
-		this.idSubregion = idSubregion;
+	public void setSubregion(Subregions subregion) {
+	    this.subregion = subregion;
 	}
 
 	
