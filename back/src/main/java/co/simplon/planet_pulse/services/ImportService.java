@@ -22,13 +22,14 @@ import tools.jackson.databind.ObjectMapper;
 
 public class ImportService {
 
+	// assignation
 	private final CountryRepository countryRepository;
 	private final RegionRepository regionRepository;
 	private final SubregionRepository subregionRepository;
 	private final RestClient restClient;
 	private final ObjectMapper objectMapper;
-	// assignation
 
+	// constructor
 	public ImportService(CountryRepository countryRepository, RegionRepository regionRepository,
 			SubregionRepository subregionRepository, RestClient.Builder restClient, ObjectMapper objectMapper) {
 		this.countryRepository = countryRepository;
@@ -37,8 +38,8 @@ public class ImportService {
 		this.restClient = restClient.build();
 		this.objectMapper = objectMapper;
 	}
-	// constructor
 
+	// Dependencies injection
 	@Value("${api.restcountries.base-url}")
 	private String baseUrl;
 
@@ -47,8 +48,8 @@ public class ImportService {
 
 	@Value("${api.restcountries.key}")
 	private String key;
-	// injection de dépendance
 
+	// URL Concatenation
 	private String buildUrl(int offset) {
 		String offsetParam = "";
 
@@ -61,17 +62,15 @@ public class ImportService {
 
 		return buildedUrl;
 	}
-	// Concaténation de l'url
 
+	// Request HTTP to API Restcountries
 	private String fetchRawJson(String url) {
 		return restClient.get().uri(url).header("Authorization", "Bearer " + key).retrieve().body(String.class);
 	}
-
-	// Envoi d'une requête get avec l'url construit dans buildUrl() et assigné à url
-	// dans importCountries()
-	// Add the given, single header value under the given name.
-	// Récupèrer la reponse en string.
+	
+	//
 	private Subregions findOrCreateSubregion(String regionName, String subregionName) {
+		
 		String reg = regionName.toLowerCase();
 		String sub = subregionName.toLowerCase();
 
@@ -89,6 +88,7 @@ public class ImportService {
 		});
 	}
 
+	//Mapping to fulfill the database
 	private Countries toEntity(CountryDtoIn dto) {
 		Countries entity = new Countries();
 		entity.setIsoCode(dto.codes().alpha_2());
@@ -97,7 +97,7 @@ public class ImportService {
 		entity.setPopulation(dto.population());
 		entity.setAreaKm(dto.area().kilometers());
 		entity.setSubregion(findOrCreateSubregion(dto.region(), dto.subregion()));
-
+		
 		return entity;
 	}
 
@@ -114,13 +114,13 @@ public class ImportService {
     		
     		String response = fetchRawJson(url);
     		
+    		//Deserialize: string JSON to object
     		RestCountriesResponse parsed = objectMapper.readValue(response, RestCountriesResponse.class);
-    		//deserialize: JSON to object
     		
-    		
+    		// Data structure to store 
     		List<CountryDtoIn> countries = parsed.data().objects();
             IO.println("Offset " + offset + " - Nombre pays: " + countries.size());
-    		// Data structure to store 
+    		
     		
     		List<CountryDtoIn> completeCountries = countries.stream()
     				.filter(CountryDtoIn::isComplete)
@@ -137,7 +137,6 @@ public class ImportService {
 
     		} catch (Exception e) {
     		IO.println("Erreur: " + e.getMessage());
-    		//
     		}
     	}
     	IO.println("Pays importés : " + imported);

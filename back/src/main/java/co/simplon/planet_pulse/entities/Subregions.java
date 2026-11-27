@@ -38,7 +38,7 @@ public class Subregions {
 	}
 
 	public void setId(Long id) {
-		this.id = id;git strategy
+		this.id = id;
 	}
 
 	public String getSubregion() {
