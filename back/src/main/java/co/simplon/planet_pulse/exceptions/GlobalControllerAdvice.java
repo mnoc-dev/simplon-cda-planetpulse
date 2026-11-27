@@ -1,6 +1,7 @@
 package co.simplon.planet_pulse.exceptions;
 
 import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import tools.jackson.databind.exc.InvalidFormatException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,4 +59,18 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, details, headers, status, request);
     }
 
+    public ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+        ProblemDetail details = ProblemDetail.forStatus(status);
+
+        if (ex.getCause() instanceof InvalidFormatException cause) {
+            details.setDetail("Invalid field format");
+
+            String fieldName = cause.getPath().getFirst().getPropertyName();
+
+            details.setProperty("errors", Map.of(fieldName, "Incorrect value type"));
+        }
+        return super.handleExceptionInternal(ex, details, headers, status, request);
+    }
 }
